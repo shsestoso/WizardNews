@@ -13,10 +13,13 @@ app.get("/", (req, res) => {
 `
 <html>
   <head>
+    <link rel='stylesheet' href='/style.css' />
     <title> Wizard News </title>
   </head>
   <body>
-    <h1>Wizard News</h1>
+  <header>
+    <img src='/logo.png' />Wizard News 
+  </header>  
     <ul> 
       ${posts.map(post => `<li> ${post.title} </li>`).join('')}
     </ul> 
