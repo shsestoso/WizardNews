@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const postBank = require('./postBank');
+const html = require ("html-template-tag")
 
 app.use(express.static('public'))
 
@@ -69,6 +70,7 @@ app.get('/posts/:id', (req, res) => {
 `)};
 });
 
+
 app.use((err, req, res, next) => {
   console.error (err.stack)
   res.status (404).send (`
@@ -87,6 +89,9 @@ app.use((err, req, res, next) => {
   </html>
   `)
 })
+
+
+
 
 
 const { PORT = 1337} = process.env;
