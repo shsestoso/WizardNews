@@ -39,7 +39,10 @@ app.get("/", (req, res) => {
 app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const post = postBank.find(id);
-  res.send(`<html>
+  if(!post.id){
+    throw new Error ('Not Found')
+  } else {
+  res.send (`<html>
   <head>
     <title>Wizard News</title>
     <link rel="stylesheet" href="/style.css" />
@@ -62,11 +65,31 @@ app.get('/posts/:id', (req, res) => {
      </div>
   </body>
 </html>
-`);
+   
+`)};
 });
 
-const PORT = 1337;
+app.use((err, req, res, next) => {
+  console.error (err.stack)
+  res.status (404).send (`
+  <html> 
+  <head>
+    <title>Wizard News</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
 
+    <body> 
+      <header> <img src="/logo.png"/>Wizard News</header>
+      <div class="not-found">
+        <h1>Accio Page! 🧙‍♀️ ... Page Not Found</h1>
+      </div>
+    </body> 
+  </html>
+  `)
+})
+
+
+const PORT = 1337;
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
 });
